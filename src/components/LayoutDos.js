@@ -1,61 +1,49 @@
-import React, { useState } from "react";
-import Autocomplete from "react-autocomplete";
-import mapboxgl from "mapbox-gl";
+import React, {useEffect, useState, useRef} from 'react';
+import 'mapbox-gl/dist/mapbox-gl.css';
+import mapboxgl from 'mapbox-gl'
+import Layout from './components/Layout'
 
-mapboxgl.accessToken = "pk.eyJ1IjoiZ29uYWxtaXJvbiIsImEiOiJjbGd6c3BvemcwbWdxM25wOTB0amJleGFpIn0.FYeIxKL5jo5B6HtGK1XAHQ";
+const mapContainer = useRef(null);
+const map = useRef(null);
+const [lng, setLng] = useState(-70.9);
+const [lat, setLat] = useState(42.35);
+const [zoom, setZoom] = useState(9);
 
-function LayoutDos() {
-  const [locations, setLocations] = useState([]);
-  
-  const [selectedLocation, setSelectedLocation] = useState(null);
-  const [map, setMap] = useState(null);
+const LayoutDos = () => {
 
-  const handleSearch = async (text) => {
-    const response = await fetch(
-      `https://api.mapbox.com/geocoding/v5/mapbox.places/${text}.json?access_token=${mapboxgl.accessToken}&country=ES&autocomplete=true`
-    );
-    const data = await response.json();
-    setLocations(data.features);
-  };
-
-  const handleSelect = (value) => {
-    const [longitude, latitude] = value.center;
-    setSelectedLocation(value);
-    map.flyTo({
-      center: [longitude, latitude],
-      zoom: 12,
+  useEffect(() => {
+    if (map.current) return; // initialize map only once
+    map.current = new mapboxgl.Map({
+    container: mapContainer.current,
+    style: 'mapbox://styles/mapbox/streets-v12',
+    center: [lng, lat],
+    zoom: zoom
     });
-    new mapboxgl.Marker().setLngLat([longitude, latitude]).addTo(map);
-  };
+    });
 
-  const handleLoad = (map) => {
-    setMap(map);
-  };
+
+    useEffect(() => {
+      if (!map.current) return; // wait for map to initialize
+      map.current.on('move', () => {
+      setLng(map.current.getCenter().lng.toFixed(4));
+      setLat(map.current.getCenter().lat.toFixed(4));
+      setZoom(map.current.getZoom().toFixed(2));
+      });
+      });
+
 
   return (
-    <>
-      <div>
-        <Autocomplete
-          getItemValue={(location) => location.place_name}
-          items={locations}
-          renderItem={(location, isHighlighted) => (
-            <div
-              key={location.id}
-              style={{ background: isHighlighted ? "#eee" : "white" }}
-            >
-              {location.place_name}
-            </div>
-          )}
-          value={selectedLocation?.place_name || ""}
-          onChange={(event) => handleSearch(event.target.value)}
-          onSelect={(value) =>
-            handleSelect(locations.find((location) => location.place_name === value))
-          }
-        />
-      </div>
-      <div style={{ height: "400px", width: "100%" }} ref={handleLoad} />
-    </>
+<>
+<Layout/>
+<div>
+
+<div className="sidebar">
+Longitude: {lng} | Latitude: {lat} | Zoom: {zoom}
+</div>
+<div ref={mapContainer} className="map-container" />
+</div>
+</>
   );
-}
+};
 
 export default LayoutDos;
