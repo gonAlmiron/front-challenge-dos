@@ -34,7 +34,7 @@ const LayoutDos = () => {
 
   return (
 <>
-<Layout/>
+
 <div>
 
 <div className="sidebar">
