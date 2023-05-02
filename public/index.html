@@ -27,7 +27,37 @@
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
+
     <div id="root"></div>
-   
+    <div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v16.0&appId=231784736196912&autoLogAppEvents=1" nonce="K9z2VKKQ"></script>
+
+    
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '231784736196912',
+      cookie     : true,
+      xfbml      : false,
+      version    : 'v16.0'
+    });
+      
+    FB.AppEvents.logPageView();   
+
+    FB.getLoginStatus(function(response) {
+    statusChangeCallback(response);
+});
+      
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "https://connect.facebook.net/es_LA/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
+
   </body>
 </html>
