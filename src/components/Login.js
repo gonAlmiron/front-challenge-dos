@@ -7,7 +7,7 @@ const LoginIG =  () => {
 
 
     // EN PRODUCCION SERIA: const redirectUri = encodeURIComponent('https://quedeporte.com.ar/auth/');
-    const redirectUri = encodeURIComponent('https://localhost:443/api/auth/code');
+    const redirectUri = encodeURIComponent('https://localhost:443/api/auth/token');
     const instagramAuthUrl = `https://api.instagram.com/oauth/authorize?client_id=180895391557997&redirect_uri=${redirectUri}&scope=user_profile,user_media&response_type=code`;
     // const instagramAuthUrl = `https://api.instagram.com/oauth/authorize?client_id=180895391557997&redirect_uri=${redirectUri}&scope=user_profile,user_media&response_type=code`
 
@@ -68,7 +68,7 @@ const LoginIG =  () => {
         </div>
 
         <div className="container my-2">
-            <button onClick={getDatos} >PEDIR DATOS CON ACCESS TOKEN DE LA API GRAPH</button>
+            <button onClick={getDatos} >PEDIR DATOS CON ACCESS TOKEN DE LA API GRAPH </button>
         </div>
 
 
