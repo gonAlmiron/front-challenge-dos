@@ -3,10 +3,10 @@ import { Link } from "react-router-dom";
 import axios from 'axios'
 
 
+
 const LoginIG =  () => {
 
-
-    // EN PRODUCCION SERIA: const redirectUri = encodeURIComponent('https://quedeporte.com.ar/auth/');
+    // EN PRODUCCION SERIA: const redirectUri = encodeURIComponent('https://quedeporte.com.ar/auth/token');
     const redirectUri = encodeURIComponent('https://localhost:443/api/auth/token');
     const instagramAuthUrl = `https://api.instagram.com/oauth/authorize?client_id=180895391557997&redirect_uri=${redirectUri}&scope=user_profile,user_media&response_type=code`;
     // const instagramAuthUrl = `https://api.instagram.com/oauth/authorize?client_id=180895391557997&redirect_uri=${redirectUri}&scope=user_profile,user_media&response_type=code`
@@ -16,8 +16,8 @@ const LoginIG =  () => {
     const getDatos = async () => {
         const response = await axios.get('https://graph.facebook.com/v16.0/me', {
             params: {
-                'fields': 'name, email',
-                'access_token': 'EAADSzpbdiTABALAp0gMhH7CBIsTYI7bo3s0nNbFtuA52PjPFE6hi3dxYv2tnDyNo6p1B0skRlROZAnkWXREe0HvhZAWKsjWtYUDTNFOt8QyrrTClXcaatI3eAUlEGOZCCEZA9ncgtfojnAYMB5EZA3quzFsBInmjeaKQwP6bxXOW4grV3ACXvDRS4A63nM2JZCLMyrZCUhfBAZDZD'
+                'fields': 'name',
+                'access_token': 'EAAQgnwlIu5kBAIwrpZBsSlOyvSjMtXpZCFMaq83FdIrS2kIqOriT5VOKtdXfm1qqpVkd4Rp2hCADrqeajZAkLvIOHUtVsZAumkzpaanzS7L85KfZCkNI8ZAMRA7rXxzXuZCGc5DPO2B343ZAMTegLNAPRIKdVrzPhiZBpdvP12osudfOdEvHlq28D5R6ZBa9gZAQHpMnpuZBAY8ZC0Pb6CdZBJZCUwp'
             }
             });
             console.log(response.data)
@@ -54,7 +54,7 @@ const LoginIG =  () => {
         </div>
         <hr/>
         <div className="container my-2">
-            <Link to="https://localhost:443/auth/facebook"> <h1> Logear con Facebook </h1> </Link>
+            <Link to="https://localhost:443/api/auth/data"> <h1> Logear con Facebook </h1> </Link>
         </div>
         </div>
 
