@@ -6,10 +6,9 @@ import axios from 'axios'
 
 const LoginIG =  () => {
 
-    // EN PRODUCCION SERIA: const redirectUri = encodeURIComponent('https://quedeporte.com.ar/auth/token');
+    // EN PRODUCCION SERIA: const redirectUri = encodeURIComponent('https://apiquedeporte.com.ar/auth/token');
     const redirectUri = encodeURIComponent('https://localhost:443/api/auth/token');
     const instagramAuthUrl = `https://api.instagram.com/oauth/authorize?client_id=180895391557997&redirect_uri=${redirectUri}&scope=user_profile,user_media&response_type=code`;
-    // const instagramAuthUrl = `https://api.instagram.com/oauth/authorize?client_id=180895391557997&redirect_uri=${redirectUri}&scope=user_profile,user_media&response_type=code`
 
 
     // FUNCION PARA PEDIR DATOS DE USUARIO FUNCIONANDO, CON EL ACCESS TOKEN DE LA INTERFACE API GRAPH CON ACCESO DE USUARIO
@@ -27,6 +26,21 @@ const LoginIG =  () => {
         const response = await axios.get('')
         console.log(response.data)
     }
+
+    const getCookie = async () => {
+        axios.get('http://localhost:8080/api/auth/cookie', { withCredentials: true })
+        .then(response => {
+          const valorCookie = response.data;
+      
+          // Utiliza el valor de la cookie en tu aplicación React
+          console.log(valorCookie);
+        })
+        .catch(error => {
+          console.error('Error al obtener el valor de la cookie:', error);
+        });
+    }
+
+
 
     // const getDatos = async () => {
     //     const response = await axios.get('https://graph.facebook.com/v16.0/me', {
@@ -69,6 +83,10 @@ const LoginIG =  () => {
 
         <div className="container my-2">
             <button onClick={getDatos} >PEDIR DATOS CON ACCESS TOKEN DE LA API GRAPH </button>
+        </div>
+
+        <div className="container my-2">
+            <button onClick={getCookie} >PEDIR EL TOKEN DESDE LA COOKIE QUE SE HIZO ANTERIORMENTE</button>
         </div>
 
 
