@@ -6,17 +6,19 @@ import axios from 'axios'
 
 const LoginIG =  () => {
 
-    // EN PRODUCCION SERIA: const redirectUri = encodeURIComponent('https://apiquedeporte.com.ar/auth/token');
-    const redirectUri = encodeURIComponent('https://localhost:443/api/auth/token');
+    // EN PRODUCCION SERIA: const redirectUri = encodeURIComponent('https://quedeporte.com.ar/auth/token');
+    // const redirectUri = encodeURIComponent('https://localhost:443/api/auth/token');
+    const redirectUri = encodeURIComponent('https://localhost:443/api/1.0/apigraph/token');
     const instagramAuthUrl = `https://api.instagram.com/oauth/authorize?client_id=180895391557997&redirect_uri=${redirectUri}&scope=user_profile,user_media&response_type=code`;
 
+    // const instagramAuthUrl = `https://api.instagram.com/oauth/authorize?client_id=180895391557997&redirect_uri=${redirectUri}&scope=user_profile,user_media&response_type=code`;
 
-    // FUNCION PARA PEDIR DATOS DE USUARIO FUNCIONANDO, CON EL ACCESS TOKEN DE LA INTERFACE API GRAPH CON ACCESO DE USUARIO
+    // FUNCION PARA PEDIR DATOS DE USUARIO FUNCIONANDO, (CON EL ACCESS TOKEN DE LA INTERFACE API GRAPH CON ACCESO DE USUARIO)
     const getDatos = async () => {
         const response = await axios.get('https://graph.facebook.com/v16.0/me', {
             params: {
                 'fields': 'name',
-                'access_token': 'EAAQgnwlIu5kBAIwrpZBsSlOyvSjMtXpZCFMaq83FdIrS2kIqOriT5VOKtdXfm1qqpVkd4Rp2hCADrqeajZAkLvIOHUtVsZAumkzpaanzS7L85KfZCkNI8ZAMRA7rXxzXuZCGc5DPO2B343ZAMTegLNAPRIKdVrzPhiZBpdvP12osudfOdEvHlq28D5R6ZBa9gZAQHpMnpuZBAY8ZC0Pb6CdZBJZCUwp'
+                'access_token': 'EAADSzpbdiTABAOKVjserx9wG6LryY9Vj6IHkF2AJaLTKH1sU3ZAGgRKG5EPJZB9ZC4SPjqmPS5OPl5wgVzUYikLQLRVmPmrHgk2wSM9JxHDeV6x3bJZAwqH50DPU7V9KC9HBkDjcP1uvCkDusUDUoZCVjXEktZBI4Ka0U717cC0fZCYaqNofj8j0mKdn7qZCfpCq7kfVjp3bNAZDZD'
             }
             });
             console.log(response.data)
@@ -55,22 +57,18 @@ const LoginIG =  () => {
     const getAccessToken = async () => {
         
         const response = await axios.post(
-          'https://localhost:443/api/auth/token')
+          'https://localhost:443/api/1.0/apigraph/token')
         console.log(response.data)
 
         }
 
     return (
     <>
-    <div className="container mx-2">
+
         <div className="container my-2">
-            <Link to="https://localhost:443/auth/instagram"> <h1>Logear con Instagram </h1> </Link>
+            <button><Link to="https://localhost:443/api/1.0/blog/listado/web"> Probar apiquedeporte localmente</Link> </button>
         </div>
-        <hr/>
-        <div className="container my-2">
-            <Link to="https://localhost:443/api/auth/data"> <h1> Logear con Facebook </h1> </Link>
-        </div>
-        </div>
+
 
         <div className="container my-2">
             <button><Link to={instagramAuthUrl}> VENTANA DE AUTORIZACION INSTAGRAM</Link> </button>
@@ -82,11 +80,7 @@ const LoginIG =  () => {
         </div>
 
         <div className="container my-2">
-            <button onClick={getDatos} >PEDIR DATOS CON ACCESS TOKEN DE LA API GRAPH </button>
-        </div>
-
-        <div className="container my-2">
-            <button onClick={getCookie} >PEDIR EL TOKEN DESDE LA COOKIE QUE SE HIZO ANTERIORMENTE</button>
+            <button onClick={getDatos} >PEDIR DATOS EN CONSOLA CON ACCESS TOKEN DE LA API GRAPH </button>
         </div>
 
 
