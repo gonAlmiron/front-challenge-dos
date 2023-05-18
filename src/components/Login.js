@@ -11,7 +11,6 @@ const LoginIG =  () => {
     const redirectUri = encodeURIComponent('https://localhost:443/api/1.0/apigraph/token');
     const instagramAuthUrl = `https://api.instagram.com/oauth/authorize?client_id=180895391557997&redirect_uri=${redirectUri}&scope=user_profile,user_media&response_type=code`;
 
-
     const getDataUsuario = async () => { 
         try {
             const response = await axios.get(instagramAuthUrl)
@@ -36,6 +35,21 @@ const LoginIG =  () => {
         const response = await axios.get('')
         console.log(response.data)
     }
+
+    const getCookie = async () => {
+        axios.get('http://localhost:8080/api/auth/cookie', { withCredentials: true })
+        .then(response => {
+          const valorCookie = response.data;
+      
+          // Utiliza el valor de la cookie en tu aplicación React
+          console.log(valorCookie);
+        })
+        .catch(error => {
+          console.error('Error al obtener el valor de la cookie:', error);
+        });
+    }
+
+
 
     // const getDatos = async () => {
     //     const response = await axios.get('https://graph.facebook.com/v16.0/me', {
