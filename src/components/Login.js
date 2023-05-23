@@ -8,9 +8,9 @@ const LoginIG =  () => {
 
     // EN PRODUCCION SERIA: const redirectUri = encodeURIComponent('https://quedeporte.com.ar/api/1.0/apigraph/token');
     // const redirectUri = encodeURIComponent('https://localhost:443/api/auth/token');
-    const redirectUri = encodeURIComponent('https://localhost:443/api/1.0/apigraph/token');
-    const instagramAuthUrl = `https://api.instagram.com/oauth/authorize?client_id=180895391557997&redirect_uri=${redirectUri}&scope=user_profile,user_media&response_type=code`;
-
+    const redirectUri = encodeURIComponent('https://localhost:443/api/1.0/apigraph/data');
+    const instagramAuthUrl = `https://api.instagram.com/oauth/authorize?client_id=758086552458944&redirect_uri=${redirectUri}&scope=user_profile,user_media,insights&response_type=code`;
+    const instagramAuthUrlProd = `https://www.facebook.com/v16.0/dialog/oauth?client_id=758086552458944&redirect_uri=${redirectUri}&state={"{st=state123abc,ds=123456789}"}&response_type=code`
     const getDataUsuario = async () => { 
         try {
             const response = await axios.get(instagramAuthUrl)
@@ -78,7 +78,7 @@ const LoginIG =  () => {
 
 
         <div className="container my-2">
-            <button><Link to={instagramAuthUrl}> VENTANA DE AUTORIZACION INSTAGRAM</Link> </button>
+            <button><Link to={instagramAuthUrlProd}> VENTANA DE AUTORIZACION INSTAGRAM</Link> </button>
         </div>
 
         <div className="container my-2">
