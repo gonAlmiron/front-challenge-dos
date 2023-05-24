@@ -2,24 +2,15 @@ import React from 'react';
 import { Link } from "react-router-dom";
 import axios from 'axios'
 
-
-
 const LoginIG =  () => {
 
     // EN PRODUCCION SERIA: const redirectUri = encodeURIComponent('https://quedeporte.com.ar/api/1.0/apigraph/token');
     // const redirectUri = encodeURIComponent('https://localhost:443/api/auth/token');
+    // const instagramAuthUrl = `https://api.instagram.com/oauth/authorize?client_id=758086552458944&redirect_uri=${redirectUri}&scope=user_profile,user_media,insights&response_type=code`;
     const redirectUri = encodeURIComponent('https://localhost:443/api/1.0/apigraph/data');
-    const instagramAuthUrl = `https://api.instagram.com/oauth/authorize?client_id=758086552458944&redirect_uri=${redirectUri}&scope=user_profile,user_media,insights&response_type=code`;
     const instagramAuthUrlProd = `https://www.facebook.com/v16.0/dialog/oauth?client_id=758086552458944&redirect_uri=${redirectUri}&state={"{st=state123abc,ds=123456789}"}&response_type=code`
-    const getDataUsuario = async () => { 
-        try {
-            const response = await axios.get(instagramAuthUrl)
-            const data = response.data
-            console.log(data)
-        } catch(err) {
-            console.log(err)
-        }
-    }
+    
+
     // FUNCION PARA PEDIR DATOS DE USUARIO FUNCIONANDO, (CON EL ACCESS TOKEN DE LA INTERFACE API GRAPH CON ACCESO DE USUARIO)
     const getDatos = async () => {
         const response = await axios.get('https://graph.facebook.com/v16.0/me', {
@@ -81,19 +72,10 @@ const LoginIG =  () => {
             <button><Link to={instagramAuthUrlProd}> VENTANA DE AUTORIZACION INSTAGRAM</Link> </button>
         </div>
 
-        <div className="container my-2">
-            <button onClick={getDataUsuario}> PEDIR IMAGENES CON VENTANA DE AUTORIZACION</button>
-        </div>
-
 
         <div className="container my-2">
             <button onClick={getAccessToken}> GENERAR ACCESS TOKEN CON EL CODIGO QUE NOS AUTORIZO INSTAGRAM</button>
         </div>
-
-        <div className="container my-2">
-            <button onClick={getDatos} >PEDIR DATOS EN CONSOLA CON ACCESS TOKEN DE LA API GRAPH </button>
-        </div>
-
 
     </>
     )
